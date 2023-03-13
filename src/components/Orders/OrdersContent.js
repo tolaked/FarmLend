@@ -10,7 +10,6 @@ import "../Products/index.scss";
 const OrderContent = ({ setInitialOrdersValues }) => {
   const navigate = useNavigate();
   const { loading, setLoading, setOrders, orders } = useContext(ItemsContext);
-  console.log({ orders });
   const fetchAllOrders = useCallback(async () => {
     setLoading(true);
     const { data } = await axiosInstance.get(`/orders`);

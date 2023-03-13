@@ -8,10 +8,9 @@ import { ItemsContext } from "../ItemsContext/ItemsContext";
 import "../Products/index.scss";
 
 const OrganizationContent = ({ setInitialOrganizationValues }) => {
-  const { loading, setLoading, setOrganizations, organizations } =
+  const { loading, setLoading, setOrganizations, organizations, products } =
     useContext(ItemsContext);
   const navigate = useNavigate();
-
   const fetchAllOrganizations = useCallback(async () => {
     setLoading(true);
     const { data } = await axiosInstance.get(`/organizations`);
@@ -57,7 +56,6 @@ const OrganizationContent = ({ setInitialOrganizationValues }) => {
               <button
                 disabled={loading}
                 onClick={() => {
-                  console.log({ organization });
                   setInitialOrganizationValues(organization);
                   navigate("/organizations", { state: "editOrganization" });
                 }}
