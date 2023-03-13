@@ -24,13 +24,6 @@ const OrderContent = ({ setInitialOrdersValues }) => {
     return deleteRequest;
   };
 
-  const renderOrderProducts = (order) => {
-    const products = order?.product
-      .map(({ category, variety }) => `${category}-${variety}`)
-      .join(",");
-    return products;
-  };
-
   useEffect(() => {
     fetchAllOrders();
   }, [fetchAllOrders]);
@@ -51,7 +44,10 @@ const OrderContent = ({ setInitialOrdersValues }) => {
             </span>
             {order?.product?.length ? (
               <span>
-                <strong>Products:</strong> {renderOrderProducts(order)}
+                <strong>Products:</strong>{" "}
+                {order?.product
+                  .map(({ category, variety }) => `${category}-${variety}`)
+                  .join(",")}
               </span>
             ) : null}
             <div className="action-buttons">

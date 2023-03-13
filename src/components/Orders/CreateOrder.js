@@ -14,7 +14,6 @@ const CreateOrganization = ({ isOpen, close, initialValues }) => {
   const options = [{ value: "sell" }, { value: "buy" }];
   const { loading, setLoading, setOrders, orders, products } =
     useContext(ItemsContext);
-
   const handleSubmit = (values) => {
     const createReq = createItem(
       values,

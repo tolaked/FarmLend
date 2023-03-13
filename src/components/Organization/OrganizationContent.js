@@ -43,7 +43,7 @@ const OrganizationContent = ({ setInitialOrganizationValues }) => {
           containerClassName="skeleton-container"
           className="skeleton-element"
         />
-      ) : (
+      ) : !loading && organizations?.length ? (
         organizations.map((organization, index) => (
           <div key={index} className="card-container">
             <span>
@@ -74,7 +74,9 @@ const OrganizationContent = ({ setInitialOrganizationValues }) => {
             </div>
           </div>
         ))
-      )}
+      ) : !loading && !organizations?.length ? (
+        <h5>No organizations yet</h5>
+      ) : null}
     </div>
   );
 };

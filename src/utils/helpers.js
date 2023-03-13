@@ -62,6 +62,6 @@ export const deleteItem = async (id, items, setItems, url) => {
       Notification("success", "Product deleted");
     }
   } catch (err) {
-    Notification("error", "An error occured");
+    return Notification("error", "An error occured");
   }
 };
