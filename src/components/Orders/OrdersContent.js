@@ -10,7 +10,7 @@ import "../Products/index.scss";
 const OrderContent = ({ setInitialOrdersValues }) => {
   const navigate = useNavigate();
   const { loading, setLoading, setOrders, orders } = useContext(ItemsContext);
-
+  console.log({ orders });
   const fetchAllOrders = useCallback(async () => {
     setLoading(true);
     const { data } = await axiosInstance.get(`/orders`);
@@ -23,6 +23,13 @@ const OrderContent = ({ setInitialOrdersValues }) => {
   const deleteOrder = (id) => {
     const deleteRequest = deleteItem(id, orders, setOrders, "organizations");
     return deleteRequest;
+  };
+
+  const renderOrderProducts = (order) => {
+    const products = order?.product
+      .map(({ category, variety }) => `${category}-${variety}`)
+      .join(",");
+    return products;
   };
 
   useEffect(() => {
@@ -43,6 +50,11 @@ const OrderContent = ({ setInitialOrdersValues }) => {
             <span>
               <strong>Type:</strong> {order?.type}
             </span>
+            {order?.product?.length ? (
+              <span>
+                <strong>Products:</strong> {renderOrderProducts(order)}
+              </span>
+            ) : null}
             <div className="action-buttons">
               <button
                 onClick={() => {
