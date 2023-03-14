@@ -9,7 +9,8 @@ import "../Products/index.scss";
 
 const OrderContent = ({ setInitialOrdersValues }) => {
   const navigate = useNavigate();
-  const { loading, setLoading, setOrders, orders } = useContext(ItemsContext);
+  const { loading, setLoading, setOrders, orders, setProducts } =
+    useContext(ItemsContext);
   const fetchAllOrders = useCallback(async () => {
     setLoading(true);
     const { data } = await axiosInstance.get(`/orders`);
@@ -19,6 +20,15 @@ const OrderContent = ({ setInitialOrdersValues }) => {
     }
   }, [setLoading, setOrders]);
 
+  const fetchAllProducts = useCallback(async () => {
+    setLoading(true);
+    const { data } = await axiosInstance.get(`/products`);
+    if (data.status === "success") {
+      setProducts(data.data);
+      setLoading(false);
+    }
+  }, [setProducts, setLoading]);
+
   const deleteOrder = (id) => {
     const deleteRequest = deleteItem(id, orders, setOrders, "organizations");
     return deleteRequest;
@@ -26,7 +36,8 @@ const OrderContent = ({ setInitialOrdersValues }) => {
 
   useEffect(() => {
     fetchAllOrders();
-  }, [fetchAllOrders]);
+    fetchAllProducts();
+  }, [fetchAllOrders, fetchAllProducts]);
   return (
     <div className="main-content">
       {loading && !orders?.length ? (
